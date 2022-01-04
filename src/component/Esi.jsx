@@ -1,0 +1,284 @@
+import React, { Component } from "react";
+import "./Salary.css";
+import axios from "axios";
+import EsiTable from "./EsiTable.jsx";
+import EsiForm from "./EsiForm.jsx";
+import EsiFormEdit from "./EsiFormEdit.jsx";
+import ContEdit from './contract_edit.jsx';
+  
+class Esi extends Component {
+  state = {
+    table: true,
+    editForm: false,
+    sqteditForm: false,
+  };
+
+  render() {
+    return (
+      <React.Fragment>
+        {this.state.table ? (
+        
+        
+       
+        
+        
+        
+          this.state.editForm ? (
+           
+           
+            this.state.sqteditForm ? (
+            
+            <ContEdit
+            
+              sqtonSalaryEditUpdate={this.sqthandleSalaryEditUpdate}
+              sqtonFormEditClose={this.sqthandleEditFormClose}
+              sqteditData={this.state.sqteditData}
+              
+            
+            />
+            
+            
+            ) : (
+        
+          <EsiFormEdit
+              onSalaryEditUpdate={this.handleSalaryEditUpdate}
+              onFormEditClose={this.handleEditFormClose}
+              editData={this.state.editData}
+              onGenderChange={this.handleEditFormGenderChange}
+        
+            />
+        
+        )
+           
+          
+            
+          
+            
+  
+          ) : (
+            <EsiTable
+
+              onAddSalary={this.handleAddSalary}
+              onEditSalary={this.handleEditSalary}
+              onsqtEditSalary={this.handlesqtEditSalary}               
+            
+            />
+          )
+        ) : (
+        
+          <EsiForm
+            onSalarySubmit={this.handleSalarySubmit}
+            onFormClose={this.handleFormClose}
+            onGenderChange={this.handleAddFormGenderChange}
+          />
+        )}    
+        </React.Fragment>
+    );
+  }
+  handleSalarySubmit = event => {
+        event.preventDefault();
+        if(!(event.target[3].value==event.target[4].value)){
+              window.alert("The bank account number you entered does not match ")
+        }
+        else{
+
+          console.log("id", event.target[0].value, event.target[1].value);
+          this.setState({ table: true });
+      
+          let body = {     
+            // Status:this.state.editFormStatus,
+            
+        
+        // DateOfJoining: { type: Date, required: true },
+        // TerminateDate: { type: Date },
+      
+      
+            // SalaryName: event.target[0].value,
+            // Address: event.target[1].value,
+            // CityID:event.target[4].value,
+            // PostalCode: event.target[5].value,
+            // Website: event.target[6].value,
+            // Email: event.target[7].value,
+            // ContactPerson: event.target[8].value,
+            // ContactNo: event.target[9].value,
+            // FaxNo: event.target[10].value,
+            // PanNo: event.target[11].value,
+            // GSTNo: event.target[12].value,
+            // CINNo: event.target[13].value,  
+            Employee: event.target[0].value,
+            BasicSalary:  event.target[1].value,
+            BankName:event.target[2].value,
+            AccountNo: event.target[3].value,
+            AccountHolderName:event.target[5].value,
+            IFSCcode: event.target[6].value,
+          //  TaxDeduction: event.target[7].value,
+          };
+          console.log(body);
+          axios
+            .post("/employee_add_salary",body)
+            .then(res => {
+              this.setState({ table: false });
+              this.setState({ table: true });
+            })
+            .catch(err => {
+              console.log(err);
+          console.log(err.response);
+          if(err.response.status==403){
+            window.alert(err.response.data) ;}
+            });
+        }
+  };
+  handleAddSalary = () => {
+    console.log("clicked1");
+    this.setState({ table: false });
+    
+
+  };
+
+
+  handleEditSalary = e => {
+    console.log("new",e);
+    console.log("clicked6");
+    this.setState({ editForm: true });
+    this.setState({ editData: e });
+  };
+  
+  
+   handlesqtEditSalary = e => {
+    console.log("new",e);
+    console.log("sqt edit");
+    this.setState({ sqteditForm: true });
+    this.setState({ editForm: true });
+    this.setState({ sqteditData: e });
+  };
+  
+  
+  
+  handleFormClose = () => {
+    console.log("clicked1");
+    this.setState({ table: true });
+  };
+  handleEditFormClose = () => {
+    console.log("clicked5");
+    this.setState({ editForm: false });
+  };
+
+
+  sqthandleEditFormClose = () => {
+    console.log("clicked5");
+    this.setState({ editForm: false });
+     this.setState({ sqteditForm: false });
+  };
+
+
+  handleSalaryEditUpdate = (info, newInfo) => {
+console.log("eeeeeeeeeeeeeeeeeeeeddddddddddddddddddddddddd")
+    newInfo.preventDefault();
+    if(1==3){
+      window.alert("The bank account number you entered does not match ")
+}
+
+else{
+    let body = {     
+      // Status:this.state.editFormStatus,
+      
+  
+  // DateOfJoining: { type: Date, required: true },
+  // TerminateDate: { type: Date },
+
+
+      // SalaryName: event.target[0].value,
+      // Address: event.target[1].value,
+      // CityID:event.target[4].value,
+      // PostalCode: event.target[5].value,
+      // Website: event.target[6].value,
+      // Email: event.target[7].value,
+      // ContactPerson: event.target[8].value,
+      // ContactNo: event.target[9].value,
+      // FaxNo: event.target[10].value,
+      // PanNo: event.target[11].value,
+      // GSTNo: event.target[12].value,
+      // CINNo: event.target[13].value, 
+      basicpay: newInfo.target[0].value, 
+      conveyence:  newInfo.target[1].value,
+      epfemployeeshare:newInfo.target[2].value,
+      epfemployeershare: newInfo.target[3].value,
+      epfemployeerpension:newInfo.target[4].value,
+      esiemployeeshare:newInfo.target[5].value,
+      esiemployeershare: newInfo.target[6].value,
+      hra: newInfo.target[7].value,
+      wlallowence: newInfo.target[8].value,
+     // TaxDeduction: newInfo.target[7].value,      
+    };
+    console.log("update", body);
+    axios
+      .put(
+        "/esi_epf_share_edit",body)
+      .then(res => {
+        this.setState({ table: false });
+        this.setState({ table: true });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    this.setState({ editForm: false });
+  }
+  };
+
+
+  sqthandleSalaryEditUpdate = (info, newInfo) => {
+console.log("eeeeeeeeeeeeeeeeeeeeddddddddddddddddddddddddd")
+    newInfo.preventDefault();
+    if(1==3){
+      window.alert("The bank account number you entered does not match ")
+}
+
+else{
+    let body = {     
+      // Status:this.state.editFormStatus,
+      
+  
+  // DateOfJoining: { type: Date, required: true },
+  // TerminateDate: { type: Date },
+
+
+      // SalaryName: event.target[0].value,
+      // Address: event.target[1].value,
+      // CityID:event.target[4].value,
+      // PostalCode: event.target[5].value,
+      // Website: event.target[6].value,
+      // Email: event.target[7].value,
+      // ContactPerson: event.target[8].value,
+      // ContactNo: event.target[9].value,
+      // FaxNo: event.target[10].value,
+      // PanNo: event.target[11].value,
+      // GSTNo: event.target[12].value,
+      // CINNo: event.target[13].value, 
+      bedpolish: newInfo.target[0].value, 
+      handpolish:  newInfo.target[1].value,
+      drycutting:newInfo.target[2].value,
+ 
+      
+      
+     // TaxDeduction: newInfo.target[7].value,      
+    };
+    console.log("update", body);
+    axios
+      .put(
+        "/get_contractors_edit",body)
+      .then(res => {
+        this.setState({ table: false });
+        this.setState({ table: true });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    this.setState({ editForm: false });
+     this.setState({ sqteditForm: false });
+  }
+  };
+}
+
+export default Esi;

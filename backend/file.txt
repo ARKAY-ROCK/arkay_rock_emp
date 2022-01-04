@@ -1,0 +1,113 @@
+<html>
+
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+
+        table td {
+            line-height: 25px;
+            padding-left: 15px;
+        }
+
+        table th {
+            background-color: #fbc403;
+            color: #363636;
+        }
+    </style>
+
+</head>
+
+<body>
+    <table border="1">
+        <tr height="100px"
+            style="background-color:#363636;color:#ffffff;text-align:center;font-size:24px; font-weight:600;">
+            <td colspan='4'>MARP </td>
+        </tr>
+        <tr>
+            <th>Employee ID:</th>
+            <td>001</td>
+            <th>Name</th>
+            <td>emp_name</td>
+        </tr>
+        <!-----2 row--->
+        <tr>
+            <th>Bank</th>
+            <td>emp_bank</td>
+            <th>Bank A/c No.</th>
+            <td>emp_act</td>
+        </tr>
+        <!------3 row---->
+    
+        <!------4 row---->
+        <tr>
+            <th>PF No.</th>
+            <td>emp_pf_num</td>
+            <th>STD days</th>
+            <td>emp_tot</td>
+        </tr>
+        <!------5 row---->
+        <tr>
+            <th>Location</th>
+            <td>Nagari</td>
+            <th>Working Days</th>
+            <td>emp_work</td>
+        </tr>
+        <!------6 row---->
+        <tr>
+            <th>Department</th>
+            <td>emp_depar</td>
+            <th>Designation</th>
+            <td>emp_design</td>
+        </tr>
+    </table>
+    <tr></tr>
+    <br />
+    <table border="1">
+        <tr>
+            <th>Earnings</th>
+            <th>Amount</th>
+            <th>Deductions</th>
+            <th>Amount</th>
+        </tr>
+        <tr>
+            <td>Basic</td>
+            <td>emp_basic</td>
+            <td>provident fund</td>
+            <td>emp_pf</td>
+        </tr>
+        <tr>
+            <td>House Rent Allowance</td>
+            <td>emp_hra</td>
+            <td>ESI</td>
+            <td>emp_esi</td>
+        </tr>
+        <tr>
+            <td>WL Allowance</td>
+            <td>emp_hl</td>
+          
+        </tr>
+        <tr>
+            <td>emp_con</td>
+            <td>3000</td>
+        </tr>
+     
+        <tr>
+            <th>Gross Earnings</th>
+            <td>emp_net</td>
+            <th>Gross Deductions</th>
+            <td>emp_det</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><strong>NET PAY</strong></td>
+            <td>emp_fin</td>
+            <td></td>
+        </tr>
+    </table>
+</body>
+
+</html>
