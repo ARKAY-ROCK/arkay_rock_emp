@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://192.168.25.99:5000",
+  "proxy": "http://192.168.25.152:5000",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.18",
     "@fortawesome/free-solid-svg-icons": "^5.8.2",

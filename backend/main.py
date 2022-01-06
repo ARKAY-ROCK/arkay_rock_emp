@@ -20,6 +20,7 @@
 
 
 # esi form
+from werkzeug.wrappers import response
 from create_user import *
 import csv
 from bson.objectid import ObjectId
@@ -5186,6 +5187,13 @@ def check_employee_exist():
 
     return 'length'
 
+
+
+@app.route('/check_user_account',methods=['PUT'])
+def check_user_account():
+    check = CheckUserExist(request.get_json()['user_name']).check_user_exist()
+
+    return check
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')

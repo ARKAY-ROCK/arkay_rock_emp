@@ -44,8 +44,20 @@ class reterive_users:
             users.append({'users': i["user_name"]})
         return users
 
+
+class CheckUserExist:
+    def __init__ (self,user_name):
+        self.user_name = user_name
+    
+    def check_user_exist(self):
+       user_ex = 0  
+       user_ex =  users_table.count_documents({'user_name':self.user_name})
+
+       return str(user_ex)
+
 #c_u = create_user('ram2','user','ram')
 # print(c_u.create_account())
 
 #cus_ret = reterive_info("ram")
 # print(cus_ret.reterive_information())
+#print(CheckUserExist('admins').check_user_exist())

@@ -17,7 +17,7 @@ class UserAccountManage extends Component {
     sqtft: "",
     username: "",
     role : "",
-    password: ""
+    password: "",
 
 
   }
@@ -56,6 +56,19 @@ class UserAccountManage extends Component {
       });
   };
 
+  check_user = () => {
+    axios
+      .put('/check_user_account',{'user_name':this.state.username})
+      .then(response => {
+        console.log(response.data);
+        if (response.data == '1'){
+          alert('user already exist')
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   loadYear = () => {
     axios
@@ -97,8 +110,9 @@ class UserAccountManage extends Component {
 
   }
 
-  onusername(e) {
-    this.setState({ username: e.target.value });
+ async onusername(e) {
+   await this.setState({ username: e.target.value });
+   this.check_user();
   }
 
   onuserrole(e) {
