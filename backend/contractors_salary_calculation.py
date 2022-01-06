@@ -59,6 +59,34 @@ class ContractorSalaryCal:
 
         return salary
 
+    def contractor_salary_new(self):
+        print(self.emp_name)
+        emp_sq = int(db_cli[self.emp_name].monthly_sq_feet.find_one(
+            {'month': self.month_year})['total_sq_feet'])
+        sqt_variable_cost = db_cli.contractors.sqt_cost.find_one({})
+        department_var_cost = sqt_variable_cost[self.department]
+
+        var_sq = department_var_cost.split("-")[0].split(",")
+
+        if len(var_sq) <=1 :
+            
+            salary = emp_sq * float (department_var_cost)
+            return salary 
+
+
+        var_cost = department_var_cost.split("-")[1].split(",")
+
+        print(var_sq,"  ",var_cost)
+
+        for i in range(0,len(var_sq)-1):
+            if ( emp_sq >= int(var_sq[i])  and emp_sq <= int(var_sq[i+1])):
+                salary = emp_sq * float (var_cost[i])
+
+        if (emp_sq >=     int (  var_sq[len(var_sq) -1 ]  )   ):
+            salary = emp_sq *  float (  var_cost[len(var_cost) -1 ]  )      
+
+        return salary
+
 
 #get_co = ContractorSalaryCal(
 #    emp_name='firstone_001', month_year='december_2021', department='bed_polish').contractor_salary()

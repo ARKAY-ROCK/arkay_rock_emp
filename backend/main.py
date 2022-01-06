@@ -4392,13 +4392,13 @@ def doenload():
 
     doc.export('MARP_REPORT.pdf')
     webbrowser.open_new_tab('/monthly_salary_downloads')
-    return send_file('MARP_REPORT.pdf', as_attachment=True, cache_timeout=60)
+    return send_file('MARP_REPORT.pdf', as_attachment=True, max_age=60)
 
 
 @app.route('/monthly_salary_downloads')
 def doenloads():
 
-    return send_file('MARP_REPORT.pdf', as_attachment=True, cache_timeout=60)
+    return send_file('MARP_REPORT.pdf', as_attachment=True, max_age=60)
 
 
 @app.route('/monthly_esi_download', methods=["PUT"])
@@ -4449,13 +4449,13 @@ def doenload_esi():
 
     webbrowser.open_new_tab('/monthly_esi_downloads_main')
 
-    return send_file('MARP_ESI_REPORT.pdf', as_attachment=True, cache_timeout=60)
+    return send_file('MARP_ESI_REPORT.pdf', as_attachment=True, max_age=60)
 
 
 @app.route('/monthly_esi_downloads_main')
 def doenloads_esi_main():
 
-    return send_file('MARP_ESI_REPORT.pdf', as_attachment=True, cache_timeout=60)
+    return send_file('MARP_ESI_REPORT.pdf', as_attachment=True, max_age=60)
 
 
 @app.route('/monthly_epf_download', methods=["PUT"])
