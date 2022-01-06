@@ -60,7 +60,7 @@ class ContractorSalaryCal:
         return salary
 
 
-get_co = ContractorSalaryCal(
-    emp_name='firstone_001', month_year='december_2021', department='bed_polish').contractor_salary()
+#get_co = ContractorSalaryCal(
+#    emp_name='firstone_001', month_year='december_2021', department='bed_polish').contractor_salary()
 
-print(get_co)
+#print(get_co)
