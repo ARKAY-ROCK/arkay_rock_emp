@@ -2559,7 +2559,7 @@ def salary_calculation_month_year():
                             no_of_sq_feet = float(s_feet['total_sq_feet'])
                             print("no_of_sq_feet", no_of_sq_feet)
 
-                            monthly_sq_salary = ContractorSalaryCal (emp_name=i,month_year=month_year,department=department['department']).contractor_salary()
+                            monthly_sq_salary = ContractorSalaryCal (emp_name=i,month_year=month_year,department=department['department']).contractor_salary_new()
 
 
 
