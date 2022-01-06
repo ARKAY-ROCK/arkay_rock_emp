@@ -6,7 +6,7 @@ import { faPlus, faTrash, faEdit, faDownload } from "@fortawesome/free-solid-svg
 import { RingLoader } from "react-spinners";
 import { css } from "@emotion/core";
 import { Form, Container, Row, Col, Button } from "react-bootstrap";
-
+import {saveAs} from "file-saver";
 
 
 import { AgGridReact } from "ag-grid-react";
@@ -383,11 +383,23 @@ class AdminSalaryTable extends Component {
                       variant="info"
 
                       color="ff7043"
-                      onClick={() =>
-
-                        axios
-                          .put("/monthly_salary_download", { date: this.state.currentdate })
+                      onClick={() =>{
+                        axios({
+                          url: '/monthly_epf_download', 
+                         data: { date: this.state.currentdate },//your url
+                          method: 'PUT',
+                          responseType: 'blob', // important
+                        }).then((response) => {
+                           const url = window.URL.createObjectURL(new Blob([response.data]));
+                           const link = document.createElement('a');
+                           link.href = url;
+                           link.setAttribute('download', 'MARP EPF REPORT.pdf'); //or any other extension
+                           document.body.appendChild(link);
+                           link.click();
+                        });
+                       
                       }
+                    }
                     >
 
                       <FontAwesomeIcon icon={faDownload} id="plus-icon" />
@@ -405,11 +417,23 @@ class AdminSalaryTable extends Component {
                       variant="info"
 
                       color="ff7043"
-                      onClick={() =>
-
-                        axios
-                          .put("/monthly_salary_download", { date: this.state.currentdate })
+                      onClick={() =>{
+                        axios({
+                          url: '/monthly_esi_download', 
+                         data: { date: this.state.currentdate },//your url
+                          method: 'PUT',
+                          responseType: 'blob', // important
+                        }).then((response) => {
+                           const url = window.URL.createObjectURL(new Blob([response.data]));
+                           const link = document.createElement('a');
+                           link.href = url;
+                           link.setAttribute('download', 'MARP ESI REPORT.pdf'); //or any other extension
+                           document.body.appendChild(link);
+                           link.click();
+                        });
+                       
                       }
+                    }
                     >
                       <FontAwesomeIcon icon={faDownload} id="plus-icon" />
                       ESI
@@ -426,11 +450,23 @@ class AdminSalaryTable extends Component {
                       variant="info"
 
                       color="ff7043"
-                      onClick={() =>
-
-                        axios
-                          .put("/monthly_salary_download", { date: this.state.currentdate })
+                      onClick={() =>{
+                        axios({
+                          url: '/monthly_salary_download', 
+                         data: { date: this.state.currentdate },//your url
+                          method: 'PUT',
+                          responseType: 'blob', // important
+                        }).then((response) => {
+                           const url = window.URL.createObjectURL(new Blob([response.data]));
+                           const link = document.createElement('a');
+                           link.href = url;
+                           link.setAttribute('download', 'MARP SALARY REPORT.pdf'); //or any other extension
+                           document.body.appendChild(link);
+                           link.click();
+                        });
+                       
                       }
+                    }
                     >
                       <FontAwesomeIcon icon={faDownload} id="plus-icon" />
                       All

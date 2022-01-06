@@ -4357,6 +4357,8 @@ def salary_calculation():
 @app.route('/monthly_salary_download', methods=["PUT"])
 def doenload():
 
+    print(request.get_json()['date'])
+
     main_list = []
 
     fields = (
@@ -4391,7 +4393,7 @@ def doenload():
         pass
 
     doc.export('MARP_REPORT.pdf')
-    webbrowser.open_new_tab('/monthly_salary_downloads')
+   # webbrowser.open_new_tab('/monthly_salary_downloads')
     return send_file('MARP_REPORT.pdf', as_attachment=True, max_age=60)
 
 
@@ -4447,7 +4449,7 @@ def doenload_esi():
 
     doc.export('MARP_ESI_REPORT.pdf')
 
-    webbrowser.open_new_tab('/monthly_esi_downloads_main')
+   # webbrowser.open_new_tab('/monthly_esi_downloads_main')
 
     return send_file('MARP_ESI_REPORT.pdf', as_attachment=True, max_age=60)
 
@@ -4506,15 +4508,15 @@ def doenload_epf():
 
     doc.export('MARP_EPF_REPORT.pdf')
 
-    webbrowser.open_new_tab('/monthly_epf_downloads_main')
+   # webbrowser.open_new_tab('/monthly_epf_downloads_main')
 
-    return send_file('MARP_EPF_REPORT.pdf', as_attachment=True, cache_timeout=60)
+    return send_file('MARP_EPF_REPORT.pdf', as_attachment=True, max_age=60)
 
 
 @app.route('/monthly_epf_downloads_main')
 def doenloads_epf_main():
 
-    return send_file('MARP_EPF_REPORT.pdf', as_attachment=True, cache_timeout=60)
+    return send_file('MARP_EPF_REPORT.pdf', as_attachment=True, max_age=60)
 
 
 @app.route('/employee-details/roll')
