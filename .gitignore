@@ -6,6 +6,8 @@
 /.pnp
 .pnp.js
 *.pyc
+*.pdf
+*_temp.html
 
 # testing
 /coverage
