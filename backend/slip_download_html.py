@@ -39,7 +39,9 @@ class SlipDownloadHtml:
         with open('salary_slip_temp.html', 'w') as file:
             file.write(filedata)
 
-        return "ok"
+        #print(filedata)    
+
+        return filedata
 
 
 # SlipDownloadHtml().replace_html()

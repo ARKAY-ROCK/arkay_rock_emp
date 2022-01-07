@@ -1,23 +1,24 @@
 import React, { Component } from "react";
 import axios from "axios";
-
 import { Form, Button, Col, Row } from "react-bootstrap";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 
 class SalarySlip extends Component {
   state = {
-    employeeData : [],
-    employeeMonth :[],
-    employeeYear : [],
-    employee_name:"",
-    name :"NA",
-    department :"NA",
-    month:"",
-    year:"",
-    sqtft:""
-   
-    
+    employeeData: [],
+    employeeMonth: [],
+    employeeYear: [],
+    employee_name: "",
+    name: "NA",
+    department: "NA",
+    month: "",
+    year: "",
+    sqtft: ""
+
+
   }
- 
+
   loadEmployeeInfo = () => {
     axios
       .get('/employee_list')
@@ -29,7 +30,7 @@ class SalarySlip extends Component {
       });
   };
 
-  
+
   loadMonth = () => {
     axios
       .get('/salary_month')
@@ -57,17 +58,17 @@ class SalarySlip extends Component {
     this.loadEmployeeInfo();
     this.loadMonth();
     this.loadYear();
-    
+
     // this.loadPositionInfo();
     // this.loadDepartmentInfo();
   }
 
 
-  async  postemployeename(e)  {
-      console.log(e.target.value);
-        this.setState({ employee_name : e.target.value });
-    await  axios
-      .put('/get_selected_employee_details',{'employee_name':e.target.value,'month':this.state.month,'year':this.state.year})
+  async postemployeename(e) {
+    console.log(e.target.value);
+    this.setState({ employee_name: e.target.value });
+    await axios
+      .put('/get_selected_employee_details', { 'employee_name': e.target.value, 'month': this.state.month, 'year': this.state.year })
       .then(response => {
         //this.setState({ employeeYear: response.data });
         console.log(response.data['department']);
@@ -79,32 +80,45 @@ class SalarySlip extends Component {
       .catch(error => {
         console.log(error);
       });
- 
+
   }
 
 
-  onmonthchange(e){
-    this.setState({month: e.target.value});
-    }
+  onmonthchange(e) {
+    this.setState({ month: e.target.value });
+  }
 
 
-    onyearchange(e){
-        this.setState({year: e.target.value});
-        }
+  onyearchange(e) {
+    this.setState({ year: e.target.value });
+  }
 
-        onsqtchange(e){
-            this.setState({sqtft: e.target.value});
-            }
-            
+  onsqtchange(e) {
+    this.setState({ sqtft: e.target.value });
+  }
 
-  salaryslip_download() {
-      console.log("submit pressed");
-      axios
-      .put('/salary_slip_download',{'employee_name':this.state.employee_name,'month':this.state.month,'year':this.state.year})
+
+  downloadPdfDocument = (ele, file_name) => {
+
+    var doc = jsPDF('p', 'px', 'letter');
+
+    doc.html(ele.toString(), {
+      callback: function (doc) {
+        doc.save(file_name);
+      }
+    });
+
+  }
+
+
+
+  async salaryslip_download() {
+    console.log("salary download pressed");
+    await axios
+      .put('/salary_slip_download', { 'employee_name': this.state.employee_name, 'month': this.state.month, 'year': this.state.year })
       .then(response => {
-        //this.setState({ employeeYear: response.data });
-       console.log(response.data);
-       window.alert(response.data);
+        this.downloadPdfDocument(response.data, this.state.employee_name + "_" + this.state.month + "_" + this.state.year + "_salary_slip.pdf");
+
       })
       .catch(error => {
         console.log(error);
@@ -122,8 +136,8 @@ class SalarySlip extends Component {
 
 
 
-          <Form.Group as={Row}>
-            <Form.Label column sm={2}>
+            <Form.Group as={Row}>
+              <Form.Label column sm={2}>
                 Select Month
               </Form.Label>
               <Col sm={10} className="form-input">
@@ -132,7 +146,7 @@ class SalarySlip extends Component {
                   required
                   onChange={value => this.onmonthchange(value)}
                 >
-                   <option value="" disabled selected>Select Month</option>
+                  <option value="" disabled selected>Select Month</option>
                   {this.state.employeeMonth.map((data, index) => (
 
                     <option key={index} value={data["_id"]}>{data["month"]}</option>
@@ -144,7 +158,7 @@ class SalarySlip extends Component {
 
 
             <Form.Group as={Row}>
-            <Form.Label column sm={2}>
+              <Form.Label column sm={2}>
                 Select Year
               </Form.Label>
               <Col sm={10} className="form-input">
@@ -154,7 +168,7 @@ class SalarySlip extends Component {
                   onChange={value => this.onyearchange(value)}
 
                 >
-                   <option value="" disabled selected>Select Year</option>
+                  <option value="" disabled selected>Select Year</option>
                   {this.state.employeeYear.map((data, index) => (
 
                     <option key={index} value={data["_id"]}>{data["year"]}</option>
@@ -164,7 +178,7 @@ class SalarySlip extends Component {
             </Form.Group>
 
 
-          <Form.Group as={Row}>
+            <Form.Group as={Row}>
               <Form.Label column sm={2}>
                 Select Employee
               </Form.Label>
@@ -174,7 +188,7 @@ class SalarySlip extends Component {
                   required
                   onChange={value => this.postemployeename(value)}
                 >
-                   <option value="" disabled selected>Select Employee</option>
+                  <option value="" disabled selected>Select Employee</option>
                   {this.state.employeeData.map((data, index) => (
 
                     <option key={index} value={data["_id"]}>{data["employee_name"]}</option>
@@ -184,23 +198,23 @@ class SalarySlip extends Component {
             </Form.Group>
 
 
-          
 
 
 
-     
-     
-     
-           
+
+
+
+
+
             <Form.Group as={Row} id="form-submit-button">
               <Col sm={{ span: 10, offset: 2 }}>
-                <Button type="submit"  onClick= { () => this.salaryslip_download() } >Submit</Button>
+                <Button type="submit" onClick={() => this.salaryslip_download()} >Submit</Button>
               </Col>
             </Form.Group>
-         
+
           </Form>
 
-          
+
         </div>
 
         {/* </div>

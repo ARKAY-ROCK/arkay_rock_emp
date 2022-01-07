@@ -46,7 +46,7 @@ class salary_slip_details:
         for i in slip_details:
             print(i , "  : ",slip_details[i])
         replace_value = SlipDownloadHtml(slip_details).replace_html()
-        return slip_details
+        return replace_value
 
 
 #https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_msvc2015-win64.exe

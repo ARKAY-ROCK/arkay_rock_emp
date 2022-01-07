@@ -5164,7 +5164,7 @@ def salary_slip_download():
     salary_slip = salary_slip_details(
         emp_name, month, year).get_salary_details()
 
-    return "ok"
+    return salary_slip
 
 
 @app.route('/check_employee_exist', methods=['PUT'])
