@@ -26,7 +26,9 @@ class EmployeeFormEdit extends Component {
     TerminateDateData: this.props.editData["TerminateDate"],
     EmailData: this.props.editData["Email"],
     BloodgroupData: this.props.editData["Bloodgroup"],
-    EmergencyContactData: this.props.editData["EmergencyContact"]
+    EmergencyContactData: this.props.editData["EmergencyContact"],
+    ESIData : this.props.editData['ESINumber'],
+    EPFData : this.props.editData['EPFNumber']
 
     // value={this.state.EmployeeTitleData}
     // onChange={value => this.onEmployeeTitleDataChange(value)}
@@ -82,6 +84,17 @@ onEmergencyContactDataChange(e){
 this.setState({EmergencyContactData: e.target.value});
 
 }
+
+onESIDataChange(e){
+  this.setState({ESIData: e.target.value});
+  
+  }
+
+
+  onEPFDataChange(e){
+    this.setState({EPFData: e.target.value});
+    
+    }
 
   onGenderChange = e => {
     this.setState({ GenderData: e.target.value });
@@ -339,6 +352,7 @@ this.setState({EmergencyContactData: e.target.value});
                   onChange={value => this.onDateOfJoiningDataChange(value)}
                 />
               </Col>
+
             </Form.Group>
             <Form.Group as={Row}>
               <Form.Label column sm={2}>
@@ -354,7 +368,38 @@ this.setState({EmergencyContactData: e.target.value});
                 />
               </Col>
             </Form.Group>
+
             
+            <Form.Group as={Row}>
+              <Form.Label column sm={2}>
+                ESI Number 
+              </Form.Label>
+              <Col sm={10} className="form-input">
+                <Form.Control
+                  type="number"
+                  placeholder="0 to detect / 1 to not detect"
+                  //   value={this.props.editData["TerminateDate"].slice(0, 10)}
+                  value={this.state.ESIData}
+                  onChange={value => this.onESIDataChange(value)}
+                />
+              </Col>
+            </Form.Group>
+
+
+            <Form.Group as={Row}>
+              <Form.Label column sm={2}>
+                EPF Number
+              </Form.Label>
+              <Col sm={10} className="form-input">
+                <Form.Control
+                  type="number"
+                  placeholder="0 to detect / 1 to not detect"
+                  //   value={this.props.editData["TerminateDate"].slice(0, 10)}
+                  value={this.state.EPFData}
+                  onChange={value => this.onEPFDataChange(value)}
+                />
+              </Col>
+            </Form.Group>
             
             
             
