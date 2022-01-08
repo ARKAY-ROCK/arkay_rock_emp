@@ -377,7 +377,11 @@ onESIDataChange(e){
               <Col sm={10} className="form-input">
                 <Form.Control
                   type="number"
+<<<<<<< HEAD
                   placeholder="1 to not detect"
+=======
+                  placeholder="0 to detect / 1 to not detect"
+>>>>>>> refs/remotes/origin/main
                   //   value={this.props.editData["TerminateDate"].slice(0, 10)}
                   value={this.state.ESIData}
                   onChange={value => this.onESIDataChange(value)}
@@ -393,7 +397,11 @@ onESIDataChange(e){
               <Col sm={10} className="form-input">
                 <Form.Control
                   type="number"
+<<<<<<< HEAD
                   placeholder="1 to not detect"
+=======
+                  placeholder="0 to detect / 1 to not detect"
+>>>>>>> refs/remotes/origin/main
                   //   value={this.props.editData["TerminateDate"].slice(0, 10)}
                   value={this.state.EPFData}
                   onChange={value => this.onEPFDataChange(value)}
