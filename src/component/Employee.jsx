@@ -147,11 +147,12 @@ class Employee extends Component {
     
     };
     axios
-      .post("/employee-enroll", body)
+      .post("/employee_enroll", body)
       .then(res => {
         this.setState({ table: false });
         this.setState({ table: true });
         console.log(body);
+        alert("Please Add salary details For the Employee in Salary Option")
       })
       .catch(err => {
         console.log(err);

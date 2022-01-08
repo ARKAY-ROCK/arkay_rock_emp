@@ -22,14 +22,15 @@ class MannualAttendence extends Component {
     present: "",
     absent: "",
     over_all_ot: "",
-    new_date : "",
-    new_in_time : "",
-    new_out_time : "",
-    new_advance : "",
-    new_delay : "",
-    new_over_time : ""
+    new_date: "",
+    new_in_time: "",
+    new_out_time: "",
+    new_advance: "",
+    new_delay: "",
+    new_over_time: "",
+    emp_details : ""
   }
-  
+
 
   loadEmployeeInfo = () => {
     axios
@@ -87,19 +88,19 @@ class MannualAttendence extends Component {
   }
 
 
- async onDateChenge(e) {
+  async onDateChenge(e) {
 
-   await this.setState({date: e.target.value});
+    await this.setState({ date: e.target.value });
     console.log(this.state.date)
 
-  await  axios
+    await axios
       .put('/get_selected_day_details', {
         employee_name: this.state.name,
         date: this.state.date,
       })
       .then(response => {
         console.log(response.data);
-       
+
         this.setState({ in_time: response.data.in_time });
         this.setState({ out_time: response.data.out_time });
         this.setState({ delay: response.data.delay });
@@ -111,6 +112,26 @@ class MannualAttendence extends Component {
       });
   }
 
+
+  reterive_empinfo = async(emp_name) => {
+
+    await axios
+      .put('/reterive_employee_info', {
+        user_name: emp_name,
+       
+      })
+      .then(response => {
+        console.log(response.data);
+        this.setState({emp_details : response.data.FirstName+"."+response.data.LastName+ "  :  " +  response.data.department + " - " + response.data.position})
+
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+  }
+
+
   componentWillMount() {
     this.loadEmployeeInfo();
     this.loadMonth();
@@ -120,6 +141,7 @@ class MannualAttendence extends Component {
 
   onempnamechange(e) {
     this.setState({ name: e.target.value });
+    this.reterive_empinfo(e.target.value);
   }
   onmonthchange(e) {
     this.setState({ month: e.target.value });
@@ -131,51 +153,51 @@ class MannualAttendence extends Component {
 
 
   in_timechange = (e) => {
-    this.setState({new_in_time : e.target.value}) 
+    this.setState({ new_in_time: e.target.value })
   }
-  out_timechange =(e) => {
+  out_timechange = (e) => {
     console.log(e.target.value)
-    this.setState({new_out_time : e.target.value}) 
+    this.setState({ new_out_time: e.target.value })
   }
 
   over_timechange = (e) => {
-    this.setState({new_over_time : e.target.value}) 
+    this.setState({ new_over_time: e.target.value })
   }
-advance_timechange = (e) => {
-  this.setState({new_advance : e.target.value}) 
-}
-
-delay_timechange = (e) => {
-  this.setState({new_delay : e.target.value}) 
-}
-
-addAttendenceDetails = () => {
-  console.log("updateAttendenceDetails");
-
-  axios
-  .put('/add_mannual_attendence_new', {
-    employee_name : this.state.name,
-    date: this.state.date,
-    in_time: this.state.new_in_time,
-    out_time: this.state.new_out_time,
-    delay : this.state.new_delay,
-    advance : this.state.new_advance,
-    overtime : this.state.new_over_time
-  })
-  .then(response => {
-   if (response.data == 'success') {
-     alert('attendence added')
-   }
-   if (response.data == 'error') {
-    alert('Error ')
+  advance_timechange = (e) => {
+    this.setState({ new_advance: e.target.value })
   }
-  
-  })
-  .catch(error => {
-    console.log(error);
-  });
 
-}
+  delay_timechange = (e) => {
+    this.setState({ new_delay: e.target.value })
+  }
+
+  addAttendenceDetails = () => {
+    console.log("updateAttendenceDetails");
+
+    axios
+      .put('/add_mannual_attendence_new', {
+        employee_name: this.state.name,
+        date: this.state.date,
+        in_time: this.state.new_in_time,
+        out_time: this.state.new_out_time,
+        delay: this.state.new_delay,
+        advance: this.state.new_advance,
+        overtime: this.state.new_over_time
+      })
+      .then(response => {
+        if (response.data == 'success') {
+          alert('attendence added')
+        }
+        if (response.data == 'error') {
+          alert('Error ')
+        }
+
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+  }
 
 
   render() {
@@ -281,7 +303,7 @@ addAttendenceDetails = () => {
                   <Col sm={10} className="form-input">
                     <Form.Control
                       type="text"
-                      placeholder="In Time"
+                      placeholder="In Time 00:00"
                       required
                       onChange={this.in_timechange}
                     />
@@ -297,7 +319,7 @@ addAttendenceDetails = () => {
                   <Col sm={10} className="form-input">
                     <Form.Control
                       type="text"
-                      placeholder="Out Time"
+                      placeholder="Out Time 00:00"
                       required
                       onChange={this.out_timechange}
                     />
@@ -313,7 +335,7 @@ addAttendenceDetails = () => {
                   <Col sm={10} className="form-input">
                     <Form.Control
                       type="text"
-                      placeholder="Over Time"
+                      placeholder="Over Time 0"
                       required
                       onChange={this.over_timechange}
                     />
@@ -330,7 +352,7 @@ addAttendenceDetails = () => {
                   <Col sm={10} className="form-input">
                     <Form.Control
                       type="text"
-                      placeholder="Advance"
+                      placeholder="Advance 0"
                       required
                       onChange={this.advance_timechange}
                     />
@@ -346,7 +368,7 @@ addAttendenceDetails = () => {
                   <Col sm={10} className="form-input">
                     <Form.Control
                       type="text"
-                      placeholder="Delay"
+                      placeholder="Delay 00:00:00"
                       required
                       onChange={this.delay_timechange}
                     />
@@ -376,6 +398,14 @@ addAttendenceDetails = () => {
 
               </thead>
               <tbody>
+
+                <tr>
+
+                  <td>Employee Details</td>
+                  <td> :  &nbsp;  &nbsp; {this.state.emp_details.toUpperCase()}</td>
+
+                </tr>
+
                 <tr>
 
                   <td>Present Days</td>

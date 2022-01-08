@@ -25,29 +25,29 @@
     <table border="1">
         <tr height="100px"
             style="background-color:#363636;color:#ffffff;text-align:center;font-size:24px; font-weight:600;">
-            <td colspan='4'>MARP  PAY SLIP - FEBRUARY 2022</td>
+            <td colspan='4'>MARP  PAY SLIP - DECEMBER 2021</td>
         </tr>
         <tr>
             <th>EMPLOYEE ID:</th>
             <td>001</td>
             <th>EMPLOYEE NAME</th>
-            <td>RAJ</td>
+            <td>ANOTHER</td>
         </tr>
         <!-----2 row--->
         <tr>
             <th>BANK</th>
             <td>SBI</td>
             <th>BANK A/c No.</th>
-            <td>001</td>
+            <td>123</td>
         </tr>
         <!------3 row---->
     
         <!------4 row---->
         <tr>
             <th>PF No.</th>
-            <td>00</td>
+            <td>000</td>
             <th>STD DAYS</th>
-            <td>28</td>
+            <td>31</td>
         </tr>
         <!------5 row---->
         <tr>
@@ -59,16 +59,16 @@
         <!------6 row---->
         <tr>
             <th>DEPARTMENT</th>
-            <td>ADMIN_PROF</td>
+            <td>ADMIN</td>
             <th>DESIGNATION</th>
-            <td>INCHARGE</td>
+            <td>ADMINISTRATION</td>
         </tr>
 
         <tr>
             <th>MONTH</th>
-            <td>FEBRUARY</td>
+            <td>DECEMBER</td>
             <th>YEAR</th>
-            <td>2022</td>
+            <td>2021</td>
         </tr>
 
     </table>
@@ -83,36 +83,36 @@
         </tr>
         <tr>
             <td>BASIC</td>
-            <td>0</td>
+            <td>1</td>
             <td>PROVIDENT FUND</td>
             <td>0.0</td>
         </tr>
         <tr>
             <td>HR ALLOWANCE</td>
-            <td>7.1</td>
+            <td>6.5</td>
             <td>ESI</td>
-            <td>5.4</td>
+            <td>8.1</td>
         </tr>
         <tr>
             <td>WL ALLOWANCE</td>
-            <td>8.0</td>
+            <td>6.5</td>
           
         </tr>
         <tr>
             <td>CONVEYANCE</td>
-            <td>1.8</td>
+            <td>3.2</td>
         </tr>
      
         <tr>
             <th>GROSS EARNINGS</th>
-            <td>89</td>
+            <td>161</td>
             <th>GROSS DEDUCTIONS</th>
-            <td>5.4</td>
+            <td>8.1</td>
         </tr>
         <tr>
             <td></td>
             <td><strong>NET PAY</strong></td>
-            <td> <strong>83</strong> </td>
+            <td> <strong>253.0</strong> </td>
             <td></td>
         </tr>
     </table>

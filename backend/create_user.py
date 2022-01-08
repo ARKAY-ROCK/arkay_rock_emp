@@ -4,7 +4,6 @@ from convert_mon_list import *
 db_con = mg()
 users_table = db_con["users"]["users"]
 
-
 class create_user:
     def __init__(self, user_name, role, password):
         self.user_name = user_name
@@ -30,6 +29,12 @@ class reterive_info:
         user_info = users_table.find({'user_name': self.user_name},{"_id":False})
         list_converter = convert_mon_list(user_info)
         return list_converter.convert_to_list()
+    
+    def reterive_employee_info(self):
+        emp_info = db_con[self.user_name].details.find_one({'EmployeeCode':self.user_name.split("_")[1]},{'_id':False})
+        
+        return emp_info
+
 
 
 class reterive_users:
@@ -55,9 +60,19 @@ class CheckUserExist:
 
        return str(user_ex)
 
+class DeleteUser:
+    def __init__ (self,employee_name):
+        self.employee_name = employee_name
+    def delete_employee(self):
+        db_con.drop_database(self.employee_name)
+
+        return "Employee Removed"
+
 #c_u = create_user('ram2','user','ram')
 # print(c_u.create_account())
 
 #cus_ret = reterive_info("ram")
 # print(cus_ret.reterive_information())
 #print(CheckUserExist('admins').check_user_exist())
+
+#DeleteUser('firstone_001').delete_employee()

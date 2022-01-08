@@ -8,8 +8,7 @@ class SlipDownloadHtml:
         with open('salary_slip.html', 'r') as file:
             filedata = file.read()
 
-        filedata = filedata.replace('emp_id', '001')
-
+    
         rep_all = {
             'emp_id': self.rep['employee_id'],
             'emp_name': self.rep['employee_name'],

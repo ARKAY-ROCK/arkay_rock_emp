@@ -108,21 +108,24 @@ class EmployeeForm extends Component {
               </Col>
             </Form.Group>
 
-            <Form.Group as={Row} >
+            <Form.Group as={Row}>
               <Form.Label column sm={2}>
-                Employee Type
+              Employee Type
               </Form.Label>
               <Col sm={10} className="form-input">
                 <Form.Control
+                  as="select"
                   type="text"
                   placeholder="Employee Type"
                   required
-                />
+                >
+
+                  <option value="roll">Role</option>
+                  <option value="unroll">UnRoll</option>
+
+                </Form.Control>
               </Col>
             </Form.Group>
-
-
-
 
 
 
@@ -291,7 +294,7 @@ class EmployeeForm extends Component {
               <Col sm={10} className="form-input">
                 <Form.Control
                   type="text"
-                  placeholder="ESI Number"
+                  placeholder="ESI Number = 1 to not detect"
 
                   required
                 />
@@ -307,7 +310,7 @@ class EmployeeForm extends Component {
               <Col sm={10} className="form-input">
                 <Form.Control
                   type="text"
-                  placeholder="EPF Number"
+                  placeholder="EPF Number = 1 to not detect"
 
                   required
                 />

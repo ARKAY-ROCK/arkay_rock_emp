@@ -386,7 +386,8 @@ class AdminSalaryTable extends Component {
                       onClick={() =>{
                         axios({
                           url: '/monthly_epf_download', 
-                         data: { date: this.state.currentdate },//your url
+                         data: { date: this.state.currentdate ,month: this.state.month,
+                          year: this.state.year},//your url
                           method: 'PUT',
                           responseType: 'blob', // important
                         }).then((response) => {
@@ -420,7 +421,8 @@ class AdminSalaryTable extends Component {
                       onClick={() =>{
                         axios({
                           url: '/monthly_esi_download', 
-                         data: { date: this.state.currentdate },//your url
+                         data: { date: this.state.currentdate ,month: this.state.month,
+                          year: this.state.year},//your url
                           method: 'PUT',
                           responseType: 'blob', // important
                         }).then((response) => {
@@ -453,7 +455,8 @@ class AdminSalaryTable extends Component {
                       onClick={() =>{
                         axios({
                           url: '/monthly_salary_download', 
-                         data: { date: this.state.currentdate },//your url
+                         data: { date: this.state.currentdate ,month: this.state.month,
+                          year: this.state.year},//your url
                           method: 'PUT',
                           responseType: 'blob', // important
                         }).then((response) => {

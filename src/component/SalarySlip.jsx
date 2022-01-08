@@ -126,6 +126,25 @@ class SalarySlip extends Component {
   }
 
 
+  new_salary_download_backend = async () => {
+    await axios({
+      url: '/salary_slip_download',
+      data: { 'employee_name': this.state.employee_name, 'month': this.state.month, 'year': this.state.year },//your url
+      method: 'PUT',
+      responseType: 'blob', // important
+    }).then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', this.state.employee_name+"_"+this.state.month+"_"+this.state.year+"_"+'.pdf'); //or any other extension
+      document.body.appendChild(link);
+      link.click();
+    });
+
+  }
+
+
+
 
   render() {
     return (
@@ -208,7 +227,7 @@ class SalarySlip extends Component {
 
             <Form.Group as={Row} id="form-submit-button">
               <Col sm={{ span: 10, offset: 2 }}>
-                <Button type="submit" onClick={() => this.salaryslip_download()} >Submit</Button>
+                <Button type="submit" onClick={() => this.new_salary_download_backend()} >Submit</Button>
               </Col>
             </Form.Group>
 

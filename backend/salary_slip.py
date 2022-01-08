@@ -16,6 +16,8 @@ class salary_slip_details:
         document = str(self.month)+ "_" + str(self.year)
         salary_table = db_cli[self.emp_name]['salary_history'].find_one({'month':document})
         employee_details = db_cli[self.emp_name].details.find_one({'EmployeeCode':self.emp_name.split("_")[1]})
+        if (employee_details == None):
+            employee_details = db_cli[self.emp_name].details.find_one({'EmployeeCode':int(self.emp_name.split("_")[1])})
         employee_salary_details = db_cli[self.emp_name].salary_details.find_one({'employee_name':self.emp_name})
         slip_details = {
             'employee_name':salary_table['employee_name'].split("_")[0].upper(),

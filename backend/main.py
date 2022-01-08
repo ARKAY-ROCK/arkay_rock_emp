@@ -44,7 +44,8 @@ from add_attendence import *
 from percentage_constants import *
 from salary_slip import *
 from contractors_salary_calculation import *
-
+import re
+import pdfkit
 # s.no , esi_no , name, D.O.j, working_days , wages , esi
 
 # epf form
@@ -1703,7 +1704,7 @@ def employee_details():
     return jsonify(bc)
 
 
-@app.route('/employee-enroll', methods=['POST'])
+@app.route('/employee_enroll', methods=['POST'])
 def employee_enroll():
 
     emp_enroll = enroll_employee(request.get_json()).create_account()
@@ -1761,24 +1762,22 @@ def employee_details_update():
 @app.route('/employee_delete', methods=['POST'])
 def employee_delete():
 
-    print("emp_id", request.get_json()['employee_id'])
-    client = mg()
-    print(request.get_json())
-    client[request.get_json()['employee_id']].details.drop()
-    client[request.get_json()['employee_id'].capitalize()].details.drop()
+    dele_emp = DeleteUser(request.get_json()['employee_id']).delete_employee()
 
-    return "ab"
+    return dele_emp
 
 
 @app.route('/employee_list', methods=['GET'])
 def employee_list():
     all_employees = client.list_database_names()
     employee_list = []
+    employee_list.append({'employee_name':'All'})
     for i in all_employees:
-        if(i != 'admin' and i != 'config' and i != 'local' and i != 'loginuser' and i != 'esi_epf_shares' and i != 'contractors'):
+        #if(i != 'admin' and i != 'config' and i != 'local' and i != 'loginuser' and i != 'esi_epf_shares' and i != 'contractors'):
+        #regular expression to get emp_id only contains integer
+        if (re.search(r'\d', i)):
             #  print(i)
             employee_list.append({'employee_name': i})
-
     return jsonify(employee_list)
 
 
@@ -2400,7 +2399,7 @@ def salary_calculation_month_year():
                         extra_amount = 0
                     if (new_salary_month > 0):
 
-                        salary_log = {'_id': i+"_"+str(month), 'employee_name': i.upper(), 'month': str(month), 'sq_ft': 0, 'net_salary': round(new_salary_month, 2), 'basic_salary': round(basic_salary, 2), 'wl_allowence': wl_allowence, 'hra': hra, 'conveyence': conveyence, 'esi_employee_share': int(esi_employee_share),
+                        salary_log = {'_id': i+"_"+str(month), 'employee_name': i.upper(), 'month': str(month), 'month_year' : request.get_json()['month']+"_"+str(request.get_json()['year']) , 'sq_ft': 0, 'net_salary': round(new_salary_month, 2), 'basic_salary': round(basic_salary, 2), 'wl_allowence': wl_allowence, 'hra': hra, 'conveyence': conveyence, 'esi_employee_share': int(esi_employee_share),
                                       'esi_employeer_share': int(esi_employeer_share), 'absent_days': absent_days, 'epf_employee_share': int(epf_employee_share), 'epf_pension_employeer_share': int(epf_pension_employeer_share),
                                       'epf_employeer_epf_share': epf_employeer_epf_share, 'overtime': round(over_time, 2), 'delay': round(detection/60, 2), 'worked_days': present_day+sundays, 'doj': doj, 'ESI-no': esi, 'EPF-no': esi,
                                       'detection': int(t_detection), 'cat': cat, 'esi_st': esi_st, 'epf_st': epf_st, 'final_salary': int(fin_salary)+extra_amount, 'department': department['department'], 'position': department['position']}
@@ -2618,7 +2617,7 @@ def salary_calculation_month_year():
                     final_month_salary = net_salary_month-esi_employee_share-epf_employee_share
 
                     if (net_salary_month > 0):
-                        salary_log = {'_id': i+"_"+str(month), 'employee_name': i.upper(), 'month': str(month), 'sq_ft': no_of_sq_feet, 'net_salary': round(net_salary_month, 3), 'basic_salary': round(basic_salary, 3), 'wl_allowence': wl_allowence, 'hra': hra, 'conveyence': conveyence, 'esi_employee_share': esi_employee_share,
+                        salary_log = {'_id': i+"_"+str(month), 'employee_name': i.upper(), 'month': str(month), 'month_year' : request.get_json()['month']+"_"+str(request.get_json()['year']),'sq_ft': no_of_sq_feet, 'net_salary': round(net_salary_month, 3), 'basic_salary': round(basic_salary, 3), 'wl_allowence': wl_allowence, 'hra': hra, 'conveyence': conveyence, 'esi_employee_share': esi_employee_share,
                                       'esi_employeer_share': esi_employeer_share, 'epf_employee_share': epf_employee_share, 'epf_pension_employeer_share': epf_pension_employeer_share,
                                       'epf_employeer_epf_share': epf_employeer_epf_share, 'overtime': '0', 'absent_days': absent_days, 'worked_days': present_day+sundays, 'doj': doj, 'ESI-no': epf, 'EPF-no': esi,
                                       'detection': 0, 'final_salary': int(final_month_salary), 'cat': cat, 'esi_st': esi_st, 'epf_st': epf_st, 'delay': 0, 'department': department['department'], 'position': department['position']}
@@ -4184,7 +4183,7 @@ def salary_calculation():
                     # sal.salary_log.monthly.drop()
                     if (new_salary_month > 0):
 
-                        salary_log = {'_id': i+"_"+str(month), 'employee_name': i, 'month': str(month), 'sq_ft': 0, 'net_salary': new_salary_month,
+                        salary_log = {'_id': i+"_"+str(month), 'employee_name': i, 'month': str(month),'month_year' : request.get_json()['month']+"_"+str(request.get_json()['year']), 'sq_ft': 0, 'net_salary': new_salary_month,
                                       'basic_salary': basic_salary, 'wl_allowence': wl_allowence, 'hra': hra, 'conveyence': conveyence,
                                       'esi_employee_share': int(esi_employee_share),
                                       'esi_employeer_share': int(esi_employeer_share), 'epf_employee_share': int(epf_employee_share),
@@ -4327,7 +4326,7 @@ def salary_calculation():
                     final_month_salary = net_salary_month-esi_employee_share-epf_employee_share
 
                     if (net_salary_month > 0):
-                        salary_log = {'_id': i+"_"+str(month)[5:7], 'employee_name': i, 'month': str(month), 'sq_ft': no_of_sq_feet, 'net_salary': net_salary_month, 'basic_salary': basic_salary, 'wl_allowence': wl_allowence, 'hra': hra, 'conveyence': conveyence, 'esi_employee_share': esi_employee_share,
+                        salary_log = {'_id': i+"_"+str(month)[5:7], 'employee_name': i, 'month': str(month), 'month_year' : request.get_json()['month']+"_"+str(request.get_json()['year']),'sq_ft': no_of_sq_feet, 'net_salary': net_salary_month, 'basic_salary': basic_salary, 'wl_allowence': wl_allowence, 'hra': hra, 'conveyence': conveyence, 'esi_employee_share': esi_employee_share,
                                       'esi_employeer_share': esi_employeer_share, 'epf_employee_share': epf_employee_share, 'epf_pension_employeer_share': epf_pension_employeer_share,
                                       'epf_employeer_epf_share': epf_employeer_epf_share, 'overtime': over_time, 'worked_days': present_day+sundays, 'doj': doj, 'ESI-no': epf, 'EPF-no': esi,
                                       'detection': 0, 'final_salary': int(final_month_salary), 'department': department['department'], 'position': department['position']}
@@ -4386,7 +4385,7 @@ def doenload():
         main_list.append(i)
 
     doc = DataToPdf(fields, main_list,
-                    title='MARP SALARY REPORT'+"  "+":"+"  "+str(main_list[0]['month'])+" : "+str(final_amount))
+                    title='MARP SALARY REPORT'+"  "+" - "+"  "+ request.get_json()['month'].upper() + "  "+ request.get_json()['year'] +" : "+str(final_amount))
     try:
         os.remove('MARP_REPORT.pdf')
     except:
@@ -4440,7 +4439,7 @@ def doenload_esi():
             main_list.append(i)
 
     doc = DataToPdf(fields_esi, main_list,
-                    title='MARP ESI REPORT'+"  "+"-"+"  "+str(main_list[0]['month']))
+                    title='MARP ESI REPORT'+"  "+"-"+"  "+request.get_json()['month'].upper() + "  "+ request.get_json()['year'] )
 
     try:
         os.remove('MARP_ESI_REPORT.pdf')
@@ -4499,7 +4498,7 @@ def doenload_epf():
             main_list.append(i)
 
     doc = DataToPdf(fields_esi, main_list,
-                    title='MARP EPF REPORT'+"  "+"-"+"  "+str(main_list[0]['month']))
+                    title='MARP EPF REPORT'+"  "+"-"+"  "+request.get_json()['month'].upper() + "  "+ request.get_json()['year'] )
 
     try:
         os.remove('MARP_EPF_REPORT.pdf')
@@ -5148,6 +5147,16 @@ def reterive_userinfo():
     print("request " , user_info)
     return  jsonify(user_info[0])
 
+@app.route('/reterive_employee_info', methods=['PUT'])
+def reterive_emp_userinfo():
+    print(request.get_json())
+    user_info = reterive_info(request.get_json()['user_name']).reterive_employee_info()
+    
+    print("request " , user_info)
+    return  jsonify(user_info)
+
+
+
 
 @app.route('/active_user_details')
 def active_user_details():
@@ -5163,8 +5172,14 @@ def salary_slip_download():
 
     salary_slip = salary_slip_details(
         emp_name, month, year).get_salary_details()
-
-    return salary_slip
+    #return salary_slip slip details as html convert pdf in frontend using jspdf
+    print(salary_slip)
+    try:
+        os.remove('salary_slip_back.pdf')
+    except:
+        print("new")
+    pdfkit.from_url('salary_slip_temp.html',"salary_slip_back.pdf")
+    return send_file('salary_slip_back.pdf', as_attachment=True, max_age=60) 
 
 
 @app.route('/check_employee_exist', methods=['PUT'])
