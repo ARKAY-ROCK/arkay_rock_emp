@@ -185,12 +185,7 @@ class MannualAttendence extends Component {
         overtime: this.state.new_over_time
       })
       .then(response => {
-        if (response.data == 'success') {
-          alert('attendence added')
-        }
-        if (response.data == 'error') {
-          alert('Error ')
-        }
+       alert(response.data)
 
       })
       .catch(error => {

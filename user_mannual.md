@@ -58,3 +58,77 @@ Use Side navigation Bar to Navigate to different Options:
 
 - Click  Edit icon in the table with correct Employee
 - Edit and Click on Submit
+
+# Upload Attendence
+
+## Select Upload Attendence option in Side navigation
+
+- Place the Attendence file in desktop under Attendence folder 
+- Click Choose file button and Select the file , Click Upload option to Upload
+- Successful Upload will give notify as Uploaded 
+
+
+# Edit Attendence 
+
+## To Add Mannual Attendence
+
+- Select Edit Attendence in Side Navigation
+- Select Employee and Date in Date Selector to add Attendence
+- Enter Timings in below format
+- ### InTime    - 00:00 24Hrs         ex - 08:30
+- ### OutTime   - 00:00 24Hrs         ex - 17:30
+- ### OverTime  - 0 Hrs               ex - 2
+- ### Advance   - 0 Mins              ex - 15 
+- ### Delay     - 00:00:00 Hrs:MM:ss  ex - 00:12:00
+- Click Add Button after entering the timining
+- Successful Attendence addition will give "ok" notification
+- Error in input format will give "Error" Notification (Attendence Will not add)
+
+## To Remove Attendence
+
+- Select Edit Attendence in Side Navigation
+- Select Employee and Date in Date Selector to add Attendence
+- Enter 0 in all fileds and Click Add Button
+- Successful deletion will give "deleted" notification
+
+## Get Monthly Attendence Data of Employee
+
+- Select Employee and select month and year, Click get button to get monthly Attendece Data
+
+
+# Attendence
+
+## Complete Attendece Data
+
+- To view Complete Attence Select Attendence Option in side navigation
+- To View monthly attendence Click GET after selecting month and year 
+- To View Daily Attendece Select Date , don't press get button data will automatically for day Attendence
+
+# Upload Square Feet
+
+## Add Square Feet
+
+- Select Employee name, month, year in Dropdown
+- Enter sq.ft in the field
+- Check Employee details before Click Submit
+- Successful Addition will give "Added" as notification
+- To check, Change Employee in the dropdown 
+
+## Edit Square Feet
+
+- Select Employee name, month, year in Dropdown
+- Older Value will show in Employee Details
+- Enter new sq.ft in the field
+- Successful Upadte  will give "Updated" as notification
+- To check, Change Employee in the dropdown 
+
+# Monthly Salary
+
+## Generate Monthly Salary
+
+- Select Month and year in monthly salary Percentage
+
+## Download Salary Report
+
+- Once salary generated Click ESI/EFP/ALL button to get salary data as pdf
+

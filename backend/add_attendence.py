@@ -49,6 +49,7 @@ class add_attendence:
                 new_date = str(self.req['date'][-2:]) + "/" + str(self.req['date'][5:7])+"/" + str(self.req['date'][:4])
                 db_cli[str(self.req['employee_name'])].attendence.delete_one({'_id': new_date})
                 status = 'deleted'
+                return "deleted"
 
         prev_overtime = 0
         if (self.req['in_time'] is None):

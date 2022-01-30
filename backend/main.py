@@ -46,6 +46,7 @@ from salary_slip import *
 from contractors_salary_calculation import *
 import re
 import pdfkit
+from upload_square_feet import *
 # s.no , esi_no , name, D.O.j, working_days , wages , esi
 
 # epf form
@@ -1579,6 +1580,7 @@ def get_selected_day_details():
 def add_mannual_attendence_new():
 
     add_man_att = add_attendence(request.get_json()).add_mannual_attendence()
+    print(add_man_att)
 
     return add_man_att
 
@@ -5042,22 +5044,15 @@ def get_selected_employee_details():
 
 @app.route('/save_square_feet_db', methods=['PUT'])
 def save_square_feet_db():
-    print(request.get_json())
-    cli = mg()
-    if (cli[request.get_json()['employee_name']].monthly_sq_feet.find_one({"month": request.get_json()['month']+"_"+request.get_json()['year']})):
-        cli[request.get_json()['employee_name']].monthly_sq_feet.update({"month": request.get_json()[
-            'month']+"_"+request.get_json()['year']}, {"$set": {'total_sq_feet': request.get_json()['sqtft']}})
-        return "updated"
-    else:
-        sqtft = {"_id": request.get_json()['month']+"_"+request.get_json()['year'],
-                 "month": request.get_json()['month']+"_"+request.get_json()['year'],
-                 "employee_name": request.get_json()['employee_name'],
-                 "total_sq_feet": request.get_json()['sqtft']
-                 }
-        abcd = cli[sqtft['employee_name']].monthly_sq_feet
-        print(sqtft)
-        abcd.insert_one(sqtft)
-        return "added"
+   
+    emp_name = request.get_json()['employee_name']
+    emp_month = request.get_json()['month']
+    emp_year = request.get_json()['year']
+    sq_ft = request.get_json()['sqtft']
+
+    res = AddSquareFeet(emp_name,emp_month,emp_year,sq_ft).add_sq_ft()
+    
+    return res
 
 
 @app.route('/salary_list_download', methods=['PUT'])

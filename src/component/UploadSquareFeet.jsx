@@ -99,7 +99,10 @@ class UploadSquareFeet extends Component {
 
   squarefeet() {
       console.log("submit pressed");
-      axios
+
+      if (this.state.sqtft != "") {
+
+        axios
       .put('/save_square_feet_db',{'employee_name':this.state.employee_name,'month':this.state.month,'year':this.state.year,'sqtft':this.state.sqtft})
       .then(response => {
         //this.setState({ employeeYear: response.data });
@@ -109,6 +112,12 @@ class UploadSquareFeet extends Component {
       .catch(error => {
         console.log(error);
       });
+      }
+
+      else {
+        alert('Please Enter sq.ft')
+      }
+      
   }
 
 
